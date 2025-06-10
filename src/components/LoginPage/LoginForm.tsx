@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { setAccessToken, setRefreshToken, getUserIdFromToken } from '../../utils/auth';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import api from '../../services/api';
@@ -10,6 +10,8 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/dashboard';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const LoginForm: React.FC = () => {
       try {
         const subRes = await api.get(`/subscription/active/${userId}`);
         if (subRes.status === 200 && Array.isArray(subRes.data) && subRes.data.length > 0) {
-          navigate('/dashboard');
+          navigate(from);
         } else {
           navigate('/packages');
         }
