@@ -288,15 +288,16 @@ const DashboardPage: React.FC = () => {
                                                 container.innerHTML = `
                                                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #721c24; font-weight: 600; background: #f8d7da; border-radius: 18px;">
                                                         Video yüklənmədi. Zəhmət olmasa daha sonra yenidən cəhd edin.
+                                                        <br/>
+                                                        <small>Error: ${(e.target as HTMLVideoElement).error?.message || 'Unknown error'}</small>
                                                     </div>
                                                 `;
                                             }
                                         }}
                                     >
-                                        <source src={selectedLesson.videoUrl} type="video/mp4; codecs=avc1.42E01E,mp4a.40.2" />
-                                        <source src={selectedLesson.videoUrl} type="video/webm; codecs=vp8,vorbis" />
                                         <source src={selectedLesson.videoUrl} type="video/mp4" />
                                         <source src={selectedLesson.videoUrl} type="video/webm" />
+                                        <source src={selectedLesson.videoUrl} type="video/ogg" />
                                         Your browser does not support the video tag.
                                     </video>
                                 </div>

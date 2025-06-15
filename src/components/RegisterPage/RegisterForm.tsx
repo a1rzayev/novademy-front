@@ -162,12 +162,26 @@ const RegisterForm: React.FC = () => {
 
             <Form.Group controlId="phoneNumber" className="mb-3">
               <Form.Label>{t('phoneNumber')}</Form.Label>
-              <Form.Control
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                required
-              />
+              <InputGroup>
+                <InputGroup.Text className="bg-light" style={{ padding: '0.375rem 0.75rem' }}>+994</InputGroup.Text>
+                <Form.Control
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '');
+                    if (value.length <= 9) {
+                      setPhoneNumber(value);
+                    }
+                  }}
+                  pattern="[0-9]{9}"
+                  maxLength={9}
+                  placeholder="XXXXXXXXX"
+                  required
+                />
+              </InputGroup>
+              <Form.Text className="text-muted">
+                {t('phoneNumberFormat')}
+              </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="group" className="mb-3">
